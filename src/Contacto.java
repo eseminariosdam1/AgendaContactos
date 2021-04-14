@@ -1,4 +1,4 @@
-//@Autor: Eenko Seminario  y  Nikolay Petrov
+//@Autor: Eneko Seminario  y  Nikolay Petrov
 
 public abstract class Contacto implements Comparable<Contacto>
 {
