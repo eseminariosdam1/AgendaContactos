@@ -15,24 +15,48 @@ public class AgendaIO {
 		while (input.hasNextLine()) {
 			String linea = input.nextLine();
 			Contacto contacto = parsearLinea(linea);
-			agenda.añadirContacto(contacto);
+			agenda.anadirContacto(contacto);
 		}
 		input.close();
 
 	}
 
-	private static Contacto parsearLinea(String linea) {
-		return null;
-	}
+private static Contacto parsearLinea(String linea) { 
+		
+		String[] partes = linea.split(","); 
+       
+		int tipoContacto = Integer.parseInt(partes[0].trim()); 
+		
+		String nombre = partes[1].trim();         
+		String apellidos = partes[2].trim();         
+		String telefono = partes[3].trim();         
+		String email = partes[4].trim();         
+		String empresa; 
+		LocalDate fechaNacimiento;         
+		Relacion relacion;    
+		
+			switch (tipoContacto) {         
+				case 1:             
+					empresa = partes[5].trim();             
+					return new Profesional(nombre, apellidos, telefono, email, empresa);   
+			
+				case 2:             
+					fechaNacimiento =LocalDate.parse(partes[5].trim(), DateTimeFormatter.ofPattern("dd/MM/yyyy"));             
+					relacion = Relacion.valueOf(partes[6].trim());             
+					return new Personal (nombre, apellidos, telefono, email, fechaNacimiento, relacion);         
+			}         
+		return null;     }
+		
 
 	/**
 	 * 
-	 * @return un array de String con todas las líneas de información de todos los
-	 *         contactos. 1 significa contacto profesional, 2 significa contacto
-	 *         personal
+	 * @return un array de String con todas las líneas de información de todos
+	 *         los contactos. 1 significa contacto profesional, 2 significa
+	 *         contacto personal
 	 */
 	private static String[] obtenerLineasDatos() {
-		return new String[] { "1, Isabel, Acosta Mendioroz,  678895433 ,  iacostamen@gmail.com ,  walden estrella ",
+		return new String[] {
+				"1, Isabel, Acosta Mendioroz,  678895433 ,  iacostamen@gmail.com ,  walden estrella ",
 				"2,  pedro , urruti tello , 616789654 ,  urrutitello@gmail.com , 09/03/2007, amigos",
 				"1, Angel , Esteban Grande , 674544123 ,  aestebang@gmail.com ,  magma publicidad ",
 				"2, elena , bueno ganuza , 6786547699 ,  ebuenogan@gmail.com , 17/03/2000, amigos",

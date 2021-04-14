@@ -10,7 +10,7 @@ public class AgendaContactos {
 
 	}
 
-	public void añadirContacto() {
+	public void anadirContacto(Contacto contacto) {
 
 	}
 
@@ -53,5 +53,6 @@ public class AgendaContactos {
 		return null;
 
 	}
+
 
 }

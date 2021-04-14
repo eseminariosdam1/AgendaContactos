@@ -2,7 +2,7 @@
 
 import java.time.LocalDate;
 
-public abstract class Personal extends Contacto {
+public class Personal extends Contacto {
 	private Relacion relacion;
 	private LocalDate fechaNacimiento;
 
@@ -24,7 +24,7 @@ public abstract class Personal extends Contacto {
 	}
 
 	
-	public String firma() 
+	public String getFirmaEmail() 
 	{
 		return "Un abrazo!";
 	}
@@ -73,5 +73,6 @@ public abstract class Personal extends Contacto {
 		str += " " + fechaNacimiento.getYear() + "\nRelacion: " + relacion.toString();
 	return str;
 	}
-	
+
+
 }
