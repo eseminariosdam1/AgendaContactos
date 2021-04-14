@@ -1,6 +1,7 @@
 
 //@author Eneko Seminario y Nikolay Petrov
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -127,10 +128,14 @@ public class AgendaContactos {
 		return personalesRelacionados;
 	}
 
-
+	/*
+	 * Dada una letra devuelve los contactos personales ordenados por fecha de
+	 * nacimiento (ascendente)
+	 */
 	public List<Personal> personalesOrdenadosPorFechaNacimiento(char letra) {
-
-		return null;
+		List<Personal> personalesEncontrados = personalesEnLetra(letra);
+		 Collections.sort(personalesEncontrados, (Personal p1, Personal p2)-> p1.getFechaNacimiento().compareTo(p2.getFechaNacimiento()));
+		 return personalesEncontrados;
 
 	}
 
