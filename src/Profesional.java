@@ -10,7 +10,7 @@ public class Profesional extends Contacto {
 	}
 
 	// https://stackoverflow.com/questions/1892765/how-to-capitalize-the-first-character-of-each-word-in-a-string
-	//He mirado en esta página y creo que se puede hacer asi(no se hacerlo de otra manera)
+	//He estado buscando, he mirado en esta página y creo que se puede hacer asi(no se hacerlo de otra manera)
 	public static String capitalizeString(String string) {
 		char[] chars = string.toLowerCase().toCharArray();
 		boolean found = false;
