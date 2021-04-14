@@ -1,4 +1,4 @@
-
+//@author Eneko Seminario y Nikolay Petrov
 /**
  * Utilidades para cargar la agenda
  */
