@@ -1,7 +1,14 @@
+package ut7.agenda.io;
 //@author Eneko Seminario y Nikolay Petrov
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
+
+import ut7.agenda.modelo.AgendaContactos;
+import ut7.agenda.modelo.Contacto;
+import ut7.agenda.modelo.Personal;
+import ut7.agenda.modelo.Profesional;
+import ut7.agenda.modelo.Relacion;
 
 
 

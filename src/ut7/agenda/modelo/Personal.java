@@ -1,3 +1,4 @@
+package ut7.agenda.modelo;
 //@Autor: Eenko Seminario y Nikolay Petrov 
 
 import java.time.LocalDate;
