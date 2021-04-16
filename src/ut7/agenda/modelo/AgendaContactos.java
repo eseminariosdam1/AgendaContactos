@@ -1,6 +1,6 @@
 package ut7.agenda.modelo;
 
-//@author Eneko Seminario y Nikolay Petrov.
+//@author Nikolay Petrov Y Eneko Seminario  .
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
