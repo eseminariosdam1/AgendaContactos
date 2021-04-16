@@ -1,39 +1,55 @@
 package ut7.agenda.modelo;
+
 //@author Eneko Seminario y Nikolay Petrov
-//@author Eneko Seminario y Nikolay Petrov
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.Map.Entry;
+import java.util.Set;
+import java.util.TreeMap;
 
 public class AgendaContactos {
 	private Map<Character, Set<Contacto>> agenda;
 
 	public AgendaContactos() {
-
-	}
+		this.agenda = new TreeMap();
+		}
 
 	public void anadirContacto(Contacto contacto) {
-
+		if(!agenda.containsKey(contacto.getPrimeraLetra())){
+            HashSet<Contacto> cont = new HashSet<>();
+            cont.add(contacto);
+            agenda.put(contacto.getPrimeraLetra(), cont);
+        }else{
+        	agenda.get(contacto.getPrimeraLetra()).add(contacto);
+             }
 	}
 
-	public void contactosEnLetra() {
-
+	public Set<Contacto> contactosEnLetra(char letra) {
+		return this.agenda.get(letra);
 	}
 
 	public void totalContactos() {
-
+		int total = 0;
+		Set<Character> claves = agenda.keySet();
+		for (Character clave : claves) {
+			total++;
+		}
 	}
 
 	@Override
 	public String toString() {
-
-		return null;
+		return "AgendaContactos [agenda=" + agenda + "]";
 	}
+
 	/*
 	 * Devuelve una colección ArrayList con todos los contactos (personales o
 	 * profesionales) que incluyen el texto indicado en su nombre o apellidos.
@@ -103,7 +119,7 @@ public class AgendaContactos {
 		// recorremos los valores del enumerado relacion
 		for (Relacion relacion : Relacion.values()) {
 			// creamos nueva entrada para el mapa de resultados
-			Entry<Relacion, Set<String>> entrada = Map.entry(relacion, new HashSet<String>());
+			Entry<Relacion, HashSet<String>> entrada = Map.entry(relacion, new HashSet<String>());
 			// recorremos las entradas de la agenda
 			for (Map.Entry<Character, Set<Contacto>> entradaAgenda : agenda.entrySet()) {
 				// recorremos los contactos de la entrada
