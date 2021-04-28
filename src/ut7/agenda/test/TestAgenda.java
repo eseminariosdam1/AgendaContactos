@@ -1,6 +1,8 @@
 package ut7.agenda.test;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import ut7.agenda.io.AgendaIO;
 import ut7.agenda.modelo.AgendaContactos;
@@ -12,7 +14,7 @@ public class TestAgenda {
 
 	public static void main(String[] args) {
 		AgendaContactos agenda = new AgendaContactos();
-		AgendaIO.importar(agenda);
+		AgendaIO.importar(agenda, "agenda.csv");
 		System.out.println(agenda);
 		separador();
 
@@ -75,7 +77,7 @@ public class TestAgenda {
 	}
 
 	private static void personalesPorRelacion(AgendaContactos agenda) {
-		Map<Relacion, List<String>> map = agenda.personalesPorRelacion();
+		Map<Relacion, Set<String>> map = agenda.personalesPorRelacion();
 		map.forEach((key, value) -> System.out.println(key + "\n\t" + value));
 	}
 
