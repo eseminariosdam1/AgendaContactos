@@ -2,15 +2,18 @@ package ut7.agenda.modelo;
 //@Autor: Eenko Seminario y Nikolay Petrov 
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class Personal extends Contacto {
 	private Relacion relacion;
 	private LocalDate fechaNacimiento;
 
 	
-	public Personal(String nombre, String apellidos, String telefono, String email, LocalDate fechaNacimiento, Relacion relacion) {
+	public Personal(String nombre, String apellidos, String telefono, String email, String fechaNacimiento, Relacion relacion) {
 		super(nombre, apellidos, telefono, email);
-		this.fechaNacimiento = fechaNacimiento;
+		 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+		this.fechaNacimiento = LocalDate.parse(fechaNacimiento, formatter);;
+		
 		this.relacion = relacion;
 	}
 
