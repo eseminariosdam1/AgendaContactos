@@ -1,4 +1,4 @@
-package ut7.agenda.modelo;
+package agenda.modelo;
 //@Autor: Eneko Seminario  y  Nikolay Petrov
 
 public abstract class Contacto implements Comparable<Contacto>
