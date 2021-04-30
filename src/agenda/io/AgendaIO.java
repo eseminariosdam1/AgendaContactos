@@ -2,8 +2,17 @@ package agenda.io;
 
 //@author Eneko Seminario y Nikolay Petrov
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.time.format.DateTimeParseException;
+import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
+import java.util.Set;
 
 import agenda.modelo.AgendaContactos;
 import agenda.modelo.Contacto;
@@ -58,6 +67,14 @@ public class AgendaIO {
 			return new Personal(nombre, apellidos, telefono, email, fechaNacimiento, relacion);
 		}
 		return null;
+	}
+
+	public static void exportarPersonales(AgendaContactos agenda, String fichero) throws IOException 
+	{
+		File f = new File(fichero);
+			PrintWriter salida = new PrintWriter(new BufferedWriter(new FileWriter(new File(fichero))));
+				Map<Relacion, Set<String>> map = agenda.personalesPorRelacion(); 	
+		salida.close();
 	}
 
 }
