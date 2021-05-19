@@ -82,8 +82,65 @@ public class GuiAgenda extends Application {
 
 	private VBox crearPanelBotones() {
 		// a completar
-		VBox panel = new VBox();
-		
+		VBox panel = new VBox(10);
+		panel.setPadding(new Insets(5));
+		TextField txtBuscar = new TextField();
+
+		txtBuscar.setPromptText("Buscar");
+		txtBuscar.getStyleClass().add("text-field");
+		txtBuscar.setOnAction(event -> {
+			System.out.println();
+		});
+		panel.getChildren().add(txtBuscar);
+		RadioButton radioListarAgenda = new RadioButton("Listar toda la agenda");
+		radioListarAgenda.getStyleClass().add("radio-button");
+		radioListarAgenda.setOnAction(event -> {
+			System.out.println();
+		});
+		panel.getChildren().add(radioListarAgenda);
+		RadioButton radioListarContactos = new RadioButton("Listar nº contactos");
+		radioListarContactos.getStyleClass().add("radio-button");
+		radioListarContactos.setOnAction(event -> {
+			System.out.println();
+		});
+		panel.getChildren().add(radioListarContactos);
+		Button botonListar = new Button("Listar");
+
+		botonListar.getStyleClass().add("botones");
+		botonListar.setOnAction(event -> {
+			System.out.println();
+		});
+
+		panel.getChildren().add(botonListar);
+		Button botonEnLetra = new Button("Contactos Personales en letra");
+		botonEnLetra.getStyleClass().add("botones");
+		botonEnLetra.setOnAction(event -> {
+			System.out.println();
+		});
+
+		panel.getChildren().add(botonEnLetra);
+		Button botonOrdenados = new Button("Contactos personales ordenados por fecha");
+		botonOrdenados.getStyleClass().add("botones");
+		botonOrdenados.setOnAction(event -> {
+			System.out.println();
+		});
+
+		panel.getChildren().add(botonOrdenados);
+		Button botonclear = new Button("Clear");
+		botonclear.getStyleClass().add("botones");
+		botonclear.setOnAction(event -> {
+			clear();
+		});
+
+		panel.getChildren().add(botonclear);
+		Button botonSalir = new Button("Salir");
+		botonSalir.getStyleClass().add("botones");
+		botonSalir.setOnAction(event -> {
+			salir();
+		});
+
+		panel.getChildren().add(botonSalir);
+
 		return panel;
 	}
 
@@ -96,14 +153,15 @@ public class GuiAgenda extends Application {
 		String abecedario = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZ";
 		int columna = 0;
 		int fila = 0;
-		for(char letra : abecedario.toCharArray()){
+		for (char letra : abecedario.toCharArray()) {
 			Button boton = new Button(Character.toString(letra));
 			boton.setPadding(new Insets(10, 20, 10, 20));
-			
+			boton.setMaxWidth(Double.MAX_VALUE);
+			boton.getStyleClass().add("botonletra");
 			boton.setOnAction(event -> {
 				System.out.println(letra);
 			});
-			if(columna == 15) {
+			if (columna == 15) {
 				columna = 0;
 				fila++;
 			}
