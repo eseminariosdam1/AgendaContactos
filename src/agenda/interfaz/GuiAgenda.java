@@ -83,13 +83,33 @@ public class GuiAgenda extends Application {
 	private VBox crearPanelBotones() {
 		// a completar
 		VBox panel = new VBox();
-
+		
 		return panel;
 	}
 
 	private GridPane crearPanelLetras() {
 		// a completar
 		GridPane panel = new GridPane();
+		panel.setHgap(10);
+		panel.setVgap(10);
+		panel.setPadding(new Insets(10));
+		String abecedario = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZ";
+		int columna = 0;
+		int fila = 0;
+		for(char letra : abecedario.toCharArray()){
+			Button boton = new Button(Character.toString(letra));
+			boton.setPadding(new Insets(10, 20, 10, 20));
+			
+			boton.setOnAction(event -> {
+				System.out.println(letra);
+			});
+			if(columna == 15) {
+				columna = 0;
+				fila++;
+			}
+			panel.add(boton, columna, fila);
+			columna++;
+		}
 
 		return panel;
 	}
@@ -100,32 +120,31 @@ public class GuiAgenda extends Application {
 		KeyCombination kc = new KeyCodeCombination(KeyCode.I, KeyCombination.CONTROL_DOWN);
 		item1.setAccelerator(kc);
 		item1.setOnAction(event -> {
-			
+
 		});
-		
+
 		MenuItem item2 = new MenuItem("Exportar Personales");
 		item2.setDisable(true);
 		kc = new KeyCodeCombination(KeyCode.E, KeyCombination.CONTROL_DOWN);
 		item2.setAccelerator(kc);
 		item2.setOnAction(event -> {
-			
+
 		});
-		
-		
+
 		SeparatorMenuItem separador = new SeparatorMenuItem();
-		
+
 		MenuItem item3 = new MenuItem("Salir");
 		kc = new KeyCodeCombination(KeyCode.S, KeyCombination.CONTROL_DOWN);
 		item3.setAccelerator(kc);
 		item3.setOnAction(event -> {
-		System.exit(0);
+			salir();
 		});
-		
+
 		menuArchivo.getItems().add(item1);
 		menuArchivo.getItems().add(item2);
 		menuArchivo.getItems().add(separador);
 		menuArchivo.getItems().add(item3);
-		
+
 		barra.getMenus().add(menuArchivo);
 	}
 
@@ -136,13 +155,13 @@ public class GuiAgenda extends Application {
 		KeyCombination kc = new KeyCodeCombination(KeyCode.B, KeyCombination.CONTROL_DOWN);
 		item1.setAccelerator(kc);
 		item1.setOnAction(event -> {
-			
+
 		});
 		MenuItem item2 = new MenuItem("Felicitar");
 		kc = new KeyCodeCombination(KeyCode.F, KeyCombination.CONTROL_DOWN);
 		item2.setAccelerator(kc);
 		item2.setOnAction(event -> {
-			
+
 		});
 		menuOperaciones.getItems().add(item1);
 		menuOperaciones.getItems().add(item2);
@@ -156,10 +175,10 @@ public class GuiAgenda extends Application {
 		KeyCombination kc = new KeyCodeCombination(KeyCode.A, KeyCombination.CONTROL_DOWN);
 		item1.setAccelerator(kc);
 		item1.setOnAction(event -> {
-			
+
 		});
 		menuHelp.getItems().add(item1);
-		
+
 		barra.getMenus().add(menuHelp);
 	}
 
