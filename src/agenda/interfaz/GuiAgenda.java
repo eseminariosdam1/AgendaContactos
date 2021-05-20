@@ -1,3 +1,4 @@
+//@author: Eneko Seminario y Nikolay Petrov
 package agenda.interfaz;
 
 import java.io.File;
@@ -72,6 +73,7 @@ public class GuiAgenda extends Application {
 	}
 
 	private BorderPane crearGui() {
+		//creamos la gui
 		BorderPane panel = new BorderPane();
 		panel.setTop(crearBarraMenu());
 		panel.setCenter(crearPanelPrincipal());
@@ -79,6 +81,7 @@ public class GuiAgenda extends Application {
 	}
 
 	private BorderPane crearPanelPrincipal() {
+		//creamos el panel principal con sus respectivas caracteristicas
 		BorderPane panel = new BorderPane();
 		panel.setPadding(new Insets(10));
 		panel.setTop(crearPanelLetras());
@@ -92,10 +95,12 @@ public class GuiAgenda extends Application {
 	}
 
 	private VBox crearPanelBotones() {
-		// a completar
+		// a completar creamos el panel y le damos padding y spacing
 		VBox panel = new VBox(10);
 		panel.setPadding(new Insets(10));
 		panel.setSpacing(10);
+		
+		//configuramos borderPane para dar margen al campo de texto Buscar configuramos el texto buscar dando la altura y la clase necesaria
 		BorderPane bordeBuscar = new BorderPane();
 		txtBuscar = new TextField();
 		BorderPane.setMargin(txtBuscar, new Insets(0, 0, 40, 0));
@@ -154,7 +159,7 @@ public class GuiAgenda extends Application {
 		btnClear.setOnAction(event -> {
 			clear();
 		});
-
+		//damos amrgen y altura a los botones
 		BorderPane bordeClear = new BorderPane();
 		BorderPane.setMargin(btnClear, new Insets(40, 0, 0, 0));
 		bordeClear.setTop(btnClear);
@@ -165,6 +170,7 @@ public class GuiAgenda extends Application {
 			salir();
 		});
 
+		//añado los controls al panel
 		panel.getChildren().add(bordeBuscar);
 		panel.getChildren().add(rbtListarTodo);
 		panel.getChildren().add(rbtListarSoloNumero);
@@ -177,7 +183,7 @@ public class GuiAgenda extends Application {
 	}
 
 	private GridPane crearPanelLetras() {
-		// a completar
+		// a completar configuro el panel
 		GridPane panel = new GridPane();
 		panel.setHgap(5);
 		panel.setVgap(5);
@@ -185,6 +191,8 @@ public class GuiAgenda extends Application {
 		String abecedario = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZ";
 		int columna = 0;
 		int fila = 0;
+		
+		//recorro el abecedario y genero un boton por cada letra
 		for (char letra : abecedario.toCharArray()) {
 			Button boton = new Button(Character.toString(letra));
 			boton.setPadding(new Insets(10, 20, 10, 20));
@@ -193,6 +201,8 @@ public class GuiAgenda extends Application {
 			boton.setOnAction(event -> {
 				System.out.println(letra);
 			});
+			
+			//Hago un if para que los botnes salgan en dos filas
 			if (columna > abecedario.length() / 2) {
 				columna = 0;
 				fila++;
@@ -205,6 +215,7 @@ public class GuiAgenda extends Application {
 	}
 
 	private void crearMenuArchivo(MenuBar barra) {
+		//creamos el menu para importar la agenda
 		Menu menuArchivo = new Menu("Archivo");
 		itemImportar = new MenuItem("Importar Agenda");
 		KeyCombination kc = new KeyCodeCombination(KeyCode.I, KeyCombination.CONTROL_DOWN);
@@ -244,7 +255,7 @@ public class GuiAgenda extends Application {
 	}
 
 	private void crearMenuOperaciones(MenuBar barra) {
-
+		//creamos el menu operaciones con sus respectivas opciones
 		Menu menuOperaciones = new Menu("Operaciones");
 		itemBuscar = new MenuItem("Buscar");
 		KeyCombination kc = new KeyCodeCombination(KeyCode.B, KeyCombination.CONTROL_DOWN);
@@ -265,6 +276,7 @@ public class GuiAgenda extends Application {
 	}
 
 	private void crearMenuHelp(MenuBar barra) {
+		//creamos el menu help con las distintas opciones con sus respectivas combinacions de teclas
 		Menu menuHelp = new Menu("Help");
 		itemAbout = new MenuItem("About");
 		KeyCombination kc = new KeyCodeCombination(KeyCode.A, KeyCombination.CONTROL_DOWN);
@@ -278,7 +290,7 @@ public class GuiAgenda extends Application {
 	}
 
 	private MenuBar crearBarraMenu() {
-		// a completar
+		// a completar Creamos la barra del menu con las distintas opciones
 		MenuBar barra = new MenuBar();
 
 		crearMenuArchivo(barra);
@@ -288,11 +300,14 @@ public class GuiAgenda extends Application {
 	}
 
 	private void importarAgenda() throws FileNotFoundException {
-		// a completar
+		
+		// a completar hacemos FileChooser para abrir una ventana y seleccionar le fichero
 		FileChooser fileChooser = new FileChooser();
 		fileChooser.setTitle("Open Resource File");
 		File fichero = fileChooser.showOpenDialog(_stage);
 		if (fichero != null) {
+			
+			//mostramos errpres de importacion en la caja de texto
 			areaTexto.setText(Integer.toString(AgendaIO.importar(agenda, fichero)) + " Errores al cargar el fichero "
 					+ fichero.getAbsolutePath());
 			itemImportar.setDisable(true);
@@ -346,7 +361,8 @@ public class GuiAgenda extends Application {
 	}
 
 	private void about() {
-		// a completar
+		// a completar creamos ventana con el uso de la clse Alert y DialogPane para los estilos 
+		//https://www.programcreek.com/java-api-examples/?api=javafx.scene.control.DialogPane
 
 		Alert alerta = new Alert(Alert.AlertType.INFORMATION);
 		DialogPane dialogPane = alerta.getDialogPane();
