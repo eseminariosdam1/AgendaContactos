@@ -1,11 +1,17 @@
 package agenda.interfaz;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+
+import agenda.io.AgendaIO;
 import agenda.modelo.AgendaContactos;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.DialogPane;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
@@ -21,6 +27,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.TextAlignment;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 public class GuiAgenda extends Application {
@@ -47,9 +54,11 @@ public class GuiAgenda extends Application {
 
 	private Button btnClear;
 	private Button btnSalir;
+	private Stage _stage;
 
 	@Override
 	public void start(Stage stage) {
+		_stage = stage;
 		agenda = new AgendaContactos(); // el modelo
 
 		BorderPane root = crearGui();
@@ -88,7 +97,7 @@ public class GuiAgenda extends Application {
 		panel.setPadding(new Insets(10));
 		panel.setSpacing(10);
 		BorderPane bordeBuscar = new BorderPane();
-		TextField txtBuscar = new TextField();
+		txtBuscar = new TextField();
 		BorderPane.setMargin(txtBuscar, new Insets(0, 0, 40, 0));
 
 		txtBuscar.setPromptText("Buscar");
@@ -99,72 +108,71 @@ public class GuiAgenda extends Application {
 		});
 		bordeBuscar.setTop(txtBuscar);
 		ToggleGroup grupo = new ToggleGroup();
-		RadioButton radioListarAgenda = new RadioButton("Listar toda la agenda");
-		radioListarAgenda.setSelected(true);
-		radioListarAgenda.getStyleClass().add("radio-button");
-		radioListarAgenda.setOnAction(event -> {
-		
+		rbtListarTodo = new RadioButton("Listar toda la agenda");
+		rbtListarTodo.setSelected(true);
+		rbtListarTodo.getStyleClass().add("radio-button");
+		rbtListarTodo.setOnAction(event -> {
+
 		});
-		radioListarAgenda.setToggleGroup(grupo);
-		RadioButton radioListarContactos = new RadioButton("Listar nº contactos");
-		radioListarContactos.getStyleClass().add("radio-button");
-		radioListarContactos.setOnAction(event -> {
+		rbtListarTodo.setToggleGroup(grupo);
+		rbtListarSoloNumero = new RadioButton("Listar nº contactos");
+		rbtListarSoloNumero.getStyleClass().add("radio-button");
+		rbtListarSoloNumero.setOnAction(event -> {
 			System.out.println();
 		});
-		radioListarContactos.setToggleGroup(grupo);
-		Button botonListar = new Button("Listar");
-		botonListar.setPrefWidth(250);
-		botonListar.getStyleClass().add("botones");
-		botonListar.setOnAction(event -> {
+		rbtListarSoloNumero.setToggleGroup(grupo);
+		btnListar = new Button("Listar");
+		btnListar.setPrefWidth(250);
+		btnListar.getStyleClass().add("botones");
+		btnListar.setOnAction(event -> {
 			System.out.println();
 		});
 
 		BorderPane bordeListar = new BorderPane();
-		BorderPane.setMargin(botonListar, new Insets(0,0,40,0));
-		bordeListar.setTop(botonListar);
-		Button botonEnLetra = new Button("Contactos Personales en letra");
-		botonEnLetra.setPrefWidth(250);
-		botonEnLetra.getStyleClass().add("botones");
-		botonEnLetra.setOnAction(event -> {
+		BorderPane.setMargin(btnListar, new Insets(0, 0, 40, 0));
+		bordeListar.setTop(btnListar);
+		btnPersonalesEnLetra = new Button("Contactos Personales en letra");
+		btnPersonalesEnLetra.setPrefWidth(250);
+		btnPersonalesEnLetra.getStyleClass().add("botones");
+		btnPersonalesEnLetra.setOnAction(event -> {
 			System.out.println();
 		});
 
-		
-		Button botonOrdenados = new Button("Contactos personales ordenados por fecha");
-		botonOrdenados.setPrefWidth(250);
-		botonOrdenados.setWrapText(true);;
-		botonOrdenados.getStyleClass().add("botones");
-		botonOrdenados.setTextAlignment(TextAlignment.CENTER);
-		botonOrdenados.setOnAction(event -> {
+		btnPersonalesOrdenadosPorFecha = new Button("Contactos personales ordenados por fecha");
+		btnPersonalesOrdenadosPorFecha.setPrefWidth(250);
+		btnPersonalesOrdenadosPorFecha.setWrapText(true);
+		;
+		btnPersonalesOrdenadosPorFecha.getStyleClass().add("botones");
+		btnPersonalesOrdenadosPorFecha.setTextAlignment(TextAlignment.CENTER);
+		btnPersonalesOrdenadosPorFecha.setOnAction(event -> {
 			System.out.println();
 		});
 
-		Button botonclear = new Button("Clear");
-		botonclear.setPrefWidth(250);
-		botonclear.getStyleClass().add("botones");
-		botonclear.setOnAction(event -> {
+		btnClear = new Button("Clear");
+		btnClear.setPrefWidth(250);
+		btnClear.getStyleClass().add("botones");
+		btnClear.setOnAction(event -> {
 			clear();
 		});
-		
+
 		BorderPane bordeClear = new BorderPane();
-		BorderPane.setMargin(botonclear, new Insets(40,0,0,0));
-		bordeClear.setTop(botonclear);
-		Button botonSalir = new Button("Salir");
-		botonSalir.setPrefWidth(250);
-		botonSalir.getStyleClass().add("botones");
-		botonSalir.setOnAction(event -> {
+		BorderPane.setMargin(btnClear, new Insets(40, 0, 0, 0));
+		bordeClear.setTop(btnClear);
+		btnSalir = new Button("Salir");
+		btnSalir.setPrefWidth(250);
+		btnSalir.getStyleClass().add("botones");
+		btnSalir.setOnAction(event -> {
 			salir();
 		});
 
-		
 		panel.getChildren().add(bordeBuscar);
-		panel.getChildren().add(radioListarAgenda);
-		panel.getChildren().add(radioListarContactos);
+		panel.getChildren().add(rbtListarTodo);
+		panel.getChildren().add(rbtListarSoloNumero);
 		panel.getChildren().add(bordeListar);
-		panel.getChildren().add(botonEnLetra);
-		panel.getChildren().add(botonOrdenados);
+		panel.getChildren().add(btnPersonalesEnLetra);
+		panel.getChildren().add(btnPersonalesOrdenadosPorFecha);
 		panel.getChildren().add(bordeClear);
-		panel.getChildren().add(botonSalir);
+		panel.getChildren().add(btnSalir);
 		return panel;
 	}
 
@@ -198,34 +206,39 @@ public class GuiAgenda extends Application {
 
 	private void crearMenuArchivo(MenuBar barra) {
 		Menu menuArchivo = new Menu("Archivo");
-		MenuItem item1 = new MenuItem("Importar Agenda");
+		itemImportar = new MenuItem("Importar Agenda");
 		KeyCombination kc = new KeyCodeCombination(KeyCode.I, KeyCombination.CONTROL_DOWN);
-		item1.setAccelerator(kc);
-		item1.setOnAction(event -> {
-
+		itemImportar.setAccelerator(kc);
+		itemImportar.setOnAction(event -> {
+			try {
+				importarAgenda();
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		});
 
-		MenuItem item2 = new MenuItem("Exportar Personales");
-		item2.setDisable(true);
+		itemExportarPersonales = new MenuItem("Exportar Personales");
+		itemExportarPersonales.setDisable(true);
 		kc = new KeyCodeCombination(KeyCode.E, KeyCombination.CONTROL_DOWN);
-		item2.setAccelerator(kc);
-		item2.setOnAction(event -> {
+		itemExportarPersonales.setAccelerator(kc);
+		itemExportarPersonales.setOnAction(event -> {
 
 		});
 
 		SeparatorMenuItem separador = new SeparatorMenuItem();
 
-		MenuItem item3 = new MenuItem("Salir");
+		itemSalir = new MenuItem("Salir");
 		kc = new KeyCodeCombination(KeyCode.S, KeyCombination.CONTROL_DOWN);
-		item3.setAccelerator(kc);
-		item3.setOnAction(event -> {
+		itemSalir.setAccelerator(kc);
+		itemSalir.setOnAction(event -> {
 			salir();
 		});
 
-		menuArchivo.getItems().add(item1);
-		menuArchivo.getItems().add(item2);
+		menuArchivo.getItems().add(itemImportar);
+		menuArchivo.getItems().add(itemExportarPersonales);
 		menuArchivo.getItems().add(separador);
-		menuArchivo.getItems().add(item3);
+		menuArchivo.getItems().add(itemSalir);
 
 		barra.getMenus().add(menuArchivo);
 	}
@@ -233,33 +246,33 @@ public class GuiAgenda extends Application {
 	private void crearMenuOperaciones(MenuBar barra) {
 
 		Menu menuOperaciones = new Menu("Operaciones");
-		MenuItem item1 = new MenuItem("Buscar");
+		itemBuscar = new MenuItem("Buscar");
 		KeyCombination kc = new KeyCodeCombination(KeyCode.B, KeyCombination.CONTROL_DOWN);
-		item1.setAccelerator(kc);
-		item1.setOnAction(event -> {
+		itemBuscar.setAccelerator(kc);
+		itemBuscar.setOnAction(event -> {
 
 		});
-		MenuItem item2 = new MenuItem("Felicitar");
+		itemFelicitar = new MenuItem("Felicitar");
 		kc = new KeyCodeCombination(KeyCode.F, KeyCombination.CONTROL_DOWN);
-		item2.setAccelerator(kc);
-		item2.setOnAction(event -> {
+		itemFelicitar.setAccelerator(kc);
+		itemFelicitar.setOnAction(event -> {
 
 		});
-		menuOperaciones.getItems().add(item1);
-		menuOperaciones.getItems().add(item2);
+		menuOperaciones.getItems().add(itemBuscar);
+		menuOperaciones.getItems().add(itemFelicitar);
 		barra.getMenus().add(menuOperaciones);
 
 	}
 
 	private void crearMenuHelp(MenuBar barra) {
 		Menu menuHelp = new Menu("Help");
-		MenuItem item1 = new MenuItem("About");
+		itemAbout = new MenuItem("About");
 		KeyCombination kc = new KeyCodeCombination(KeyCode.A, KeyCombination.CONTROL_DOWN);
-		item1.setAccelerator(kc);
-		item1.setOnAction(event -> {
-
+		itemAbout.setAccelerator(kc);
+		itemAbout.setOnAction(event -> {
+			about();
 		});
-		menuHelp.getItems().add(item1);
+		menuHelp.getItems().add(itemAbout);
 
 		barra.getMenus().add(menuHelp);
 	}
@@ -274,9 +287,17 @@ public class GuiAgenda extends Application {
 		return barra;
 	}
 
-	private void importarAgenda() {
+	private void importarAgenda() throws FileNotFoundException {
 		// a completar
-
+		FileChooser fileChooser = new FileChooser();
+		fileChooser.setTitle("Open Resource File");
+		File fichero = fileChooser.showOpenDialog(_stage);
+		if (fichero != null) {
+			areaTexto.setText(Integer.toString(AgendaIO.importar(agenda, fichero)) + " Errores al cargar el fichero "
+					+ fichero.getAbsolutePath());
+			itemImportar.setDisable(true);
+			itemExportarPersonales.setDisable(false);
+		}
 	}
 
 	private void exportarPersonales() {
@@ -327,6 +348,14 @@ public class GuiAgenda extends Application {
 	private void about() {
 		// a completar
 
+		Alert alerta = new Alert(Alert.AlertType.INFORMATION);
+		DialogPane dialogPane = alerta.getDialogPane();
+
+		dialogPane.getStylesheets().add(getClass().getResource("/application.css").toExternalForm());
+		alerta.setTitle("About agenda de contactos");
+		alerta.setHeaderText("About agenda de contactos");
+		alerta.setContentText("Mi agenda de contactos.");
+		alerta.showAndWait();
 	}
 
 	private void clear() {

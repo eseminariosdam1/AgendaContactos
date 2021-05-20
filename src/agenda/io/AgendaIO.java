@@ -25,9 +25,10 @@ import agenda.modelo.Relacion;
  */
 public class AgendaIO {
 
-	public static int importar(AgendaContactos agenda, String fichero) {
+	public static int importar(AgendaContactos agenda, File fichero) throws FileNotFoundException {
 		int errores = 0;
-		Scanner input = new Scanner(agenda.getClass().getResourceAsStream(fichero));
+		//Scanner input = new Scanner(agenda.getClass().getResourceAsStream(fichero));
+		Scanner input = new Scanner(fichero);
 		while (input.hasNextLine()) {
 			String linea = input.nextLine();
 			try {
@@ -35,6 +36,7 @@ public class AgendaIO {
 				agenda.anadirContacto(contacto);
 			} catch (Exception e) {
 				errores++;
+				e.printStackTrace();
 			}
 
 		}
@@ -63,7 +65,7 @@ public class AgendaIO {
 
 		case 2:
 			fechaNacimiento =partes[5].trim();
-			relacion = Relacion.valueOf(partes[6].trim());
+			relacion = Relacion.valueOf(partes[6].trim().toUpperCase());
 			return new Personal(nombre, apellidos, telefono, email, fechaNacimiento, relacion);
 		}
 		return null;
