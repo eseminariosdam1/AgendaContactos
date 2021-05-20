@@ -6,6 +6,7 @@
     -fx-font-family: "Pt Sans";
     -fx-font-size: 14px;
     -fx-text-fill:  blue;
+    -fx-alignment:center;
 }
 .text-area {
 	-fx-border-color:  blue;
